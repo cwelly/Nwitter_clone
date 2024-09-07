@@ -1,6 +1,8 @@
- import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
+
 import { getAuth } from "firebase/auth";
- const firebaseConfig = {
+
+const firebaseConfig = {
   apiKey: "AIzaSyASGeGKQq-I1KcPXt9XhL36P0_1nH09pAM",
   authDomain: "nwitter-reloaded-61dd9.firebaseapp.com",
   projectId: "nwitter-reloaded-61dd9",
