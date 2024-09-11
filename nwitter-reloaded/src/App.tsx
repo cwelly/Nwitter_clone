@@ -9,6 +9,7 @@ import reset from "styled-reset"
 import { useEffect, useState } from "react"
 import LoadingScreen from "./components/loading-screen"
 import { auth } from "./firebase/firebase"
+import ProtectedRoute from "./components/protected-route"
 
 const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -27,11 +28,15 @@ const router = createBrowserRouter([{
   children: [
     {
       path: "",
-      element: <Home />,
+      element: <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
     },
     {
       path: "profile",
-      element: <Profile />
+      element: <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
     }
   ]
 },
@@ -49,20 +54,20 @@ const Wrapper = styled.div`
     justify-content: center;
 `;
 function App() {
-  const [isLoading ,setIsLoading] = useState(true);
-  const init = async()=>{
+  const [isLoading, setIsLoading] = useState(true);
+  const init = async () => {
     await auth.authStateReady();
     setIsLoading(false);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     init();
-  },[])
+  }, [])
 
   return (
     <Wrapper>
       <GlobalStyles></GlobalStyles>
-      {isLoading?<LoadingScreen/>:<RouterProvider router={router} />}
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </Wrapper>
   )
 }
